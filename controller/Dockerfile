@@ -4,7 +4,7 @@
 FROM golang:1.24.4-alpine AS builder
 
 ARG TARGETOS=linux
-ARG TARGETARCH=amd64
+ARG TARGETARCH
 
 WORKDIR /app
 
@@ -24,7 +24,7 @@ RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -a -o uptime-ku
 # --- Final image ---
 FROM alpine:latest
 
-ARG TARGETARCH=amd64
+ARG TARGETARCH
 
 WORKDIR /root/
 
