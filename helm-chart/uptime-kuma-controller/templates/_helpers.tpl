@@ -22,3 +22,9 @@ Return the chart name
 {{- define "uptime-kuma-controller.name" -}}
 uptime-kuma-controller
 {{- end }}
+{{/*
+Return the chart name
+*/}}
+{{- define "uptime-kuma-controller.chart" -}}
+{{- .Chart.Name | quote }}
+{{- end }}

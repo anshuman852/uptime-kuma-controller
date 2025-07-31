@@ -24,8 +24,12 @@ type UptimeKumaInstanceReconciler struct {
 //+kubebuilder:rbac:groups=uptimekuma.uptime-kuma-controller,resources=uptimekumainstances/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=uptimekuma.uptime-kuma-controller,resources=uptimekumainstances/finalizers,verbs=update
 
+/*
+Reconcile reconciles a UptimeKumaInstance resource.
+This method is called when a change is detected for the resource.
+*/
 func (r *UptimeKumaInstanceReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	logger := log.FromContext(ctx)
+    logger := log.FromContext(ctx)
 
 	var instance apiv1alpha1.UptimeKumaInstance
 	err := r.Get(ctx, req.NamespacedName, &instance)

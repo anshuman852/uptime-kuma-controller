@@ -24,8 +24,12 @@ type NotificationChannelReconciler struct {
 //+kubebuilder:rbac:groups=uptimekuma.uptime.kuma,resources=notificationchannels/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=uptimekuma.uptime.kuma,resources=notificationchannels/finalizers,verbs=update
 
+/*
+Reconcile reconciles a NotificationChannel resource.
+This method is called when a change is detected for the resource.
+*/
 func (r *NotificationChannelReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	logger := log.FromContext(ctx)
+    logger := log.FromContext(ctx)
 
 	var channel apiv1alpha1.NotificationChannel
 	if err := r.Get(ctx, req.NamespacedName, &channel); err != nil {
