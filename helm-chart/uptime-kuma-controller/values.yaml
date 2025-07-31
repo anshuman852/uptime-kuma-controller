@@ -1,0 +1,20 @@
+# Default values for uptime-kuma-controller Helm chart.
+
+replicaCount: 1
+
+image:
+  repository: your-docker-repo/uptime-kuma-controller
+  tag: latest
+  pullPolicy: IfNotPresent
+
+serviceAccount:
+  create: true
+  name: ""
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

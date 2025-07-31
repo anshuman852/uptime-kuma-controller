@@ -1,0 +1,59 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: monitors.kuma.anshuman.github.io
+spec:
+  group: kuma.anshuman.github.io
+  names:
+    kind: Monitor
+    listKind: MonitorList
+    plural: monitors
+    singular: monitor
+    shortNames:
+      - mon
+  scope: Namespaced
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            apiVersion:
+              type: string
+            kind:
+              type: string
+            metadata:
+              type: object
+            spec:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: URL to monitor
+                type:
+                  type: string
+                  description: Type of monitor (e.g., http, tcp)
+                interval:
+                  type: integer
+                  description: Interval in seconds
+                uptimeKumaInstanceRef:
+                  type: string
+                  description: Reference to UptimeKumaInstance
+              required:
+                - url
+                - type
+                - interval
+                - uptimeKumaInstanceRef
+            status:
+              type: object
+              properties:
+                monitorID:
+                  type: string
+                  description: MonitorID in Uptime Kuma (if provisioned)
+                status:
+                  type: string
+                  description: Status of the monitor (e.g., Pending, Ready, Error)
+      subresources:
+        status: {}

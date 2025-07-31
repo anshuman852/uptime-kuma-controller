@@ -1,0 +1,16 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "uptime-kuma-controller.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "uptime-kuma-controller.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+rules:
+  - apiGroups: ["uptimekuma.example.com"]
+    resources: ["uptimekumamonitors", "uptimekumamonitors/status",
+                "uptimekumainstances", "uptimekumainstances/status",
+                "notificationchannels", "notificationchannels/status"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]

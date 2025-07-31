@@ -1,0 +1,6 @@
+apiVersion: v2
+name: uptime-kuma-controller
+description: A Helm chart for deploying the Uptime Kuma Controller and its CRDs
+type: application
+version: 0.2.0
+appVersion: "0.2.0"

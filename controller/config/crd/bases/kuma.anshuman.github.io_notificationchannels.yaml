@@ -1,0 +1,60 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: notificationchannels.kuma.anshuman.github.io
+spec:
+  group: kuma.anshuman.github.io
+  names:
+    kind: NotificationChannel
+    listKind: NotificationChannelList
+    plural: notificationchannels
+    singular: notificationchannel
+    shortNames:
+      - nch
+  scope: Namespaced
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            apiVersion:
+              type: string
+            kind:
+              type: string
+            metadata:
+              type: object
+            spec:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Type of the notification channel (e.g., telegram, slack, email)
+                name:
+                  type: string
+                  description: Name of the notification channel
+                data:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  description: Channel-specific configuration (e.g., webhook URL, tokens)
+                uptimeKumaInstanceRef:
+                  type: string
+                  description: Reference to the UptimeKumaInstance this channel belongs to
+              required:
+                - type
+                - name
+                - uptimeKumaInstanceRef
+            status:
+              type: object
+              properties:
+                channelID:
+                  type: string
+                  description: ChannelID assigned by Uptime Kuma (if available)
+                status:
+                  type: string
+                  description: Status reflects the current state (e.g., Ready, Error)
+      subresources:
+        status: {}

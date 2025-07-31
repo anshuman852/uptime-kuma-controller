@@ -1,0 +1,124 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: uptimekumamonitors.uptimekuma.example.com
+spec:
+  group: uptimekuma.example.com
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                name:
+                  type: string
+                url:
+                  type: string
+                interval:
+                  type: integer
+            status:
+              type: object
+              properties:
+                lastCheck:
+                  type: string
+                  format: date-time
+                status:
+                  type: string
+      subresources:
+        status: {}
+  scope: Namespaced
+  names:
+    plural: uptimekumamonitors
+    singular: uptimekumamonitor
+    kind: UptimeKumaMonitor
+    shortNames:
+      - ukm
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: uptimekumainstances.uptimekuma.example.com
+spec:
+  group: uptimekuma.example.com
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                url:
+                  type: string
+                username:
+                  type: string
+                passwordSecretRef:
+                  type: string
+            status:
+              type: object
+              properties:
+                connected:
+                  type: boolean
+                message:
+                  type: string
+      subresources:
+        status: {}
+  scope: Namespaced
+  names:
+    plural: uptimekumainstances
+    singular: uptimekumainstance
+    kind: UptimeKumaInstance
+    shortNames:
+      - uki
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: notificationchannels.uptimekuma.example.com
+spec:
+  group: uptimekuma.example.com
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                type:
+                  type: string
+                name:
+                  type: string
+                data:
+                  type: object
+                  additionalProperties:
+                    type: string
+                uptimeKumaInstanceRef:
+                  type: string
+            status:
+              type: object
+              properties:
+                channelID:
+                  type: string
+                status:
+                  type: string
+      subresources:
+        status: {}
+  scope: Namespaced
+  names:
+    plural: notificationchannels
+    singular: notificationchannel
+    kind: NotificationChannel
+    shortNames:
+      - uknc
